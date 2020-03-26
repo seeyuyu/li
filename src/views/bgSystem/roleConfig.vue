@@ -642,7 +642,7 @@ export default {
     float: left;
 }
 .tableContent{
-    margin-right:64px;
+    /* margin-right:64px; */
 }
 .table2{
     height:50%;
@@ -654,5 +654,12 @@ export default {
 .dialogFrm{
   overflow: scroll;
   height: 400px;
+}
+</style>
+<style>
+.content{
+  background: #f0f2f5;
+  overflow: hidden;
+  width:100%;
 }
 </style>

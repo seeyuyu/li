@@ -6,69 +6,41 @@
         </div>
         <div class="navScrollDiv">
             <div class="navBlockDiv">
-                <div class="navBlockLi">
+                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8022/',1)" data-url="">
                     <div class="navBlockLiImg">
                         <img src="https://dn-st.teambition.net/appstore/images/basic_app_members.png">
                     </div>
-                    <p class="navBlockTxt">名称</p>
+                    <p class="navBlockTxt">妇幼三期</p>
                 </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
+                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8013/',1)" >
+                    <div class="navBlockLiImg">
+                      <img src="https://dn-st.teambition.net/appstore/images/basic_app_administration.png">
+                    </div>
+                    <p class="navBlockTxt">报表</p>
                 </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
+                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8066/',1)" >
+                    <div class="navBlockLiImg">
+                      <img src="https://developer.teambition.com/reportapp/assets/logo.png">
+                    </div>
+                    <p class="navBlockTxt">档案管理</p>
                 </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
+                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8015/',1)" >
+                    <div class="navBlockLiImg">
+                      <img src="https://striker.teambition.net/thumbnail/1119f87d6658f5dbea861daa17946aec29de/w/1024/h/1024">
+                    </div>
+                    <p class="navBlockTxt">产检计划</p>
                 </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
+                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8012/',1)">
+                    <div class="navBlockLiImg">
+                      <img src="https://striker.teambition.net/thumbnail/11193f197529451ed9bce062893c821ea2e6/w/1024/h/1024">
+                    </div>
+                    <p class="navBlockTxt">上传统计</p>
                 </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
-                </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
-                </div>
-
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
-                </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
-                </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
-                </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
-                </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
-                </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
-                </div>
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
-                </div>
-
-                <div class="navBlockLi">
-                    <div class="navBlockLiImg"></div>
-                    <p class="navBlockTxt">名称</p>
+                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8090/',1)">
+                    <div class="navBlockLiImg">
+                      <img src="https://tcs.teambition.net/thumbnail/111o9200db4e71419ba5f4b5d61a064837ed/w/88/h/88">
+                    </div>
+                    <p class="navBlockTxt">妇幼平台</p>
                 </div>
             </div>
             <div class="editNavBtnDiv">
@@ -76,14 +48,14 @@
             </div>
         </div>
         <div class="navBottomDiv">
-            <a class="navBottomLi">
+            <a class="navBottomLi" @click="checkurl('/roleConfig',2)">
                 <i class="el-icon-setting leftIcon"></i>
-                <span>企业管理</span>
+                <span>权限管理</span>
                 <i class="fr el-icon-arrow-right"></i>
             </a>
-            <a class="navBottomLi">
+            <a class="navBottomLi" @click="checkurl('/system',2)">
                 <i class="el-icon-setting leftIcon"></i>
-                <span>企业管理</span>
+                <span>首页</span>
                 <i class="fr el-icon-arrow-right"></i>
             </a>
         </div>
@@ -109,8 +81,20 @@ export default {
     },
     methods: {
         closeNav () {
-            this.controlRetract = !this.controlRetract
-            bus.$emit('retract', this.controlRetract)
+          this.controlRetract = !this.controlRetract
+          bus.$emit('retract', this.controlRetract)
+        },
+        checkurl (e, type) {
+          console.log("2222")
+          this.controlRetract = !this.controlRetract
+          bus.$emit('retract', this.controlRetract)
+          if(type===1){
+            // window.location.href = e;
+            window.open(e,'_blank') // 新窗口打开外链接
+          }else{
+            this.$router.push({path:e})
+          }
+
         },
         handleOpen (key, keyPath) {
             console.log(key, keyPath)
@@ -137,7 +121,7 @@ export default {
         }
     },
     computed: {
-        onRoutes () { 
+        onRoutes () {
             return this.$route.path.replace('/', '');
         }
     }
@@ -256,8 +240,6 @@ export default {
     bottom: 0;
     background: #fff;
     border-radius: 4px;
-    -webkit-box-shadow: 0 12px 32px 0 rgba(38,38,38,.16);
-    box-shadow: 0 12px 32px 0 rgba(38,38,38,.16);
 
     position: fixed!important;
     -webkit-animation: none;
@@ -285,5 +267,8 @@ li {
    -webkit-transform: none!important;
     -ms-transform: none!important;
     transform: none!important;
+
+    -webkit-box-shadow: 0 12px 32px 0 rgba(38,38,38,.16);
+    box-shadow: 0 12px 32px 0 rgba(38,38,38,.16);
   }
 </style>

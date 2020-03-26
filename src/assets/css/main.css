@@ -34,7 +34,7 @@ body {
   right: 0px;
   top: 0px;
   bottom: 0; */
-  padding-bottom: 30px;
+  /* padding-bottom: 30px; */
   -webkit-transition: left .3s ease-in-out;
   transition: left .3s ease-in-out;
   background: #f0f2f5;
@@ -51,9 +51,7 @@ html, body, #app, .wrapper{
   font-size:14px;
 
 }
-.wrapper{
-  background-color: #f0f2f5;
-}
+
 .sidebar ul{
   height:100%;
 }

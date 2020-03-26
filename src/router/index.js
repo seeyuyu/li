@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import Home from '@/views/home'
+import System from '@/views/system'
 import Test from '@/views/children/test'
 // import Ce from '@/views/ceshi1'
 import Shi from '@/views/ceshi2'
@@ -19,6 +19,15 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
+    {
+      path: '/system',
+      name: '后台',
+      component: System,
+      meta: {
+        title: '测试2',
+        headShow: true
+      }
+    },
     {
       path: '/',
       name: 'Home',
