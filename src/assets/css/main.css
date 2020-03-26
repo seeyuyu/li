@@ -1,0 +1,106 @@
+/* 基础样式 start */
+div,
+a,
+li,
+ul,
+span,
+p,
+h1,
+h2,
+h3,
+input,
+select {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.txtCenter{
+  text-align: center;
+}
+/* 基础样式 end */
+
+.content-box {
+  /* position: absolute;
+  left: 180px;
+  right: 0px;
+  top: 0px;
+  bottom: 0; */
+  padding-bottom: 30px;
+  -webkit-transition: left .3s ease-in-out;
+  transition: left .3s ease-in-out;
+  background: #f0f2f5;
+}
+
+.menu-deployment {
+  left: 64px;
+}
+html, body, #app, .wrapper{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  color: #262626;
+  font-size:14px;
+
+}
+.wrapper{
+  background-color: #f0f2f5;
+}
+.sidebar ul{
+  height:100%;
+}
+.cross-col1{
+  width:178px;
+}
+.cross-col2{
+  width:462px;
+}
+/* input样式 */
+.el-input__inner{
+  height: 35px;
+  line-height: 35px;
+}
+.el-form-item {
+  margin-bottom: 15px;
+}
+.el-input--suffix .el-input__inner{
+  padding-right: 15px;
+}
+/* 时间选框样式 使之与input等宽 */
+.el-date-editor.el-input{
+  width:100%;
+}
+.el-date-editor .el-input__inner{
+
+  padding-right:0px;
+}
+/* 时间范围选择框样式 */
+.line {
+  text-align: center;
+}
+/* 搜索作用的表单 盒子 */
+.formDiv {
+  /* padding: 25px 10px; */
+  padding: 25px 10px 10px 10px;
+  background: #fff;
+  margin-bottom: 3px;
+  border-radius: 3px;
+}
+.el-form-item.disblock{
+  display: block;
+}
+.fl{
+  float:left;
+}
+.fr{
+  float:right;
+}
+

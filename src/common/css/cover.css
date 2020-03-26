@@ -1,0 +1,31 @@
+/*
+  覆盖已有样式，多页面引用，需加特有类名
+*/
+
+/* 公共样式覆盖 start */
+
+/* 滚动条样式调整 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: #fff;
+}
+::-webkit-scrollbar-thumb {
+  border-radius:5px;
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .1); */
+  background-color: rgba(220,223,224)
+}
+
+/* 公共样式覆盖 end */
+
+/* roleConfig 页样式 start */
+.roleConfig .table3 .el-table tr td:last-child,.roleConfig .table2 .el-table tr td:last-child,.roleConfig .table2 .el-table tr th:last-child,.roleConfig .table3 .el-table tr th:last-child{
+    text-align: center;
+}
+.roleConfig .el-input__inner{
+  height: 30px;
+  line-height: 30px;
+  margin-bottom: 3px;
+  border-radius: 5px;
+}
+/* roleConfig 页样式 end */
