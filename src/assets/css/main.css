@@ -37,7 +37,8 @@ body {
   /* padding-bottom: 30px; */
   -webkit-transition: left .3s ease-in-out;
   transition: left .3s ease-in-out;
-  background: #f0f2f5;
+  background: #f7f7f7;
+
 }
 
 .menu-deployment {
@@ -101,4 +102,6 @@ html, body, #app, .wrapper{
 .fr{
   float:right;
 }
-
+.ovh{
+  overflow: hidden;
+}

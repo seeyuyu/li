@@ -73,8 +73,10 @@ export default {
   },
   methods: {
     goin () {
-      if (this.name === 'a') {
+      if (this.name === 'yanshi') {
         this.$router.push('/')
+      } else {
+        this.$message.error('用户名或密码错误')
       }
     }
   }

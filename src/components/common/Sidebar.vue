@@ -178,6 +178,10 @@ export default {
     display: inline-block;
     -webkit-box-shadow: 0 4px 16px 0 rgba(38,38,38,0.12);
     box-shadow: 0 4px 16px 0 rgba(38,38,38,0.12);
+    transition: all .3s;
+}
+.navBlockLiImg:hover{
+    transform: translateY(-4px);
 }
 .navBlockLiImg img{
     width: 44px;
@@ -199,6 +203,7 @@ export default {
     line-height:36px;
     display: block;
     padding: 0 10px 0 20px;
+    cursor: pointer;
 }
 .navBottomLi i{
     line-height: 36px;

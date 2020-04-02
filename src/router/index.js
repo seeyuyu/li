@@ -20,18 +20,9 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/system',
+      path: '/',
       name: '后台',
       component: System,
-      meta: {
-        title: '测试2',
-        headShow: true
-      }
-    },
-    {
-      path: '/',
-      name: 'Home',
-      component: createdlist,
       meta: {
         title: '测试2',
         headShow: true
@@ -570,7 +561,7 @@ export default new Router({
       component: iframePage,
       meta: {
         title: '测试3',
-        headShow: true
+        headShow: false
       }
     },
     {
@@ -579,7 +570,7 @@ export default new Router({
       component: roleConfig,
       meta: {
         title: '测试3',
-        headShow: false
+        headShow: true
       }
     }
   ]

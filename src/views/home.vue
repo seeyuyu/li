@@ -1,14 +1,15 @@
 <template>
     <div class="wrapper">
-        <c-sidebar v-show="headShow"></c-sidebar>
+        <!-- v-show="!(path === '/login')"  -->
+        <c-sidebar v-if='this.$route.meta.headShow'></c-sidebar>
         <div class="content-box">
-            <c-header v-show="headShow"></c-header>
+            <c-header v-if='this.$route.meta.headShow && this.$route.query.type!=2'></c-header>
             <!-- <c-tags v-show="headShow"></c-tags> -->
-            <div class="content">
+            <!-- <div class="content"> -->
                 <keep-alive :include="tagsArr">
                     <router-view></router-view>
                 </keep-alive>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
 </template>
@@ -55,6 +56,8 @@ export default {
 </script>
 <style>
 .content{
-  padding: 40px;
+  padding: 0 40px 0 40px;
+  overflow: hidden;
+  width: 100%;
 }
 </style>

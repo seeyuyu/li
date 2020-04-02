@@ -8,7 +8,7 @@
             >
                 <i class="el-icon-s-unfold"></i>
             </div>
-            <div class="logo">后台</div>
+            <div class="logo">妇幼专科</div>
         </div>
         <div class="header-right">
             <div class="header-user-con">
