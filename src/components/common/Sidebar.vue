@@ -53,7 +53,7 @@
                 <span>权限管理</span>
                 <i class="fr el-icon-arrow-right"></i>
             </a>
-            <a class="navBottomLi" @click="checkurl('/system',2)">
+            <a class="navBottomLi" @click="checkurl('/',2)">
                 <i class="el-icon-setting leftIcon"></i>
                 <span>首页</span>
                 <i class="fr el-icon-arrow-right"></i>
@@ -85,12 +85,13 @@ export default {
           bus.$emit('retract', this.controlRetract)
         },
         checkurl (e, type) {
-          console.log("2222")
           this.controlRetract = !this.controlRetract
           bus.$emit('retract', this.controlRetract)
+          console.log(localStorage.getItem('cToken'))
+          let cToken = localStorage.getItem('cToken')
           if(type===1){
             // window.location.href = e;
-            window.open(e,'_blank') // 新窗口打开外链接
+            window.open(e+'?id='+cToken,'_blank') // 新窗口打开外链接
           }else{
             this.$router.push({path:e})
           }

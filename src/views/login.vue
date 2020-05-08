@@ -1,29 +1,38 @@
 <template>
     <div id="wrapper" class="login-page">
+        <!-- <div>妇幼专科系统</div> -->
         <div id="login_form" class="form">
             <form class="layui-form" action="">
                 <div class="layui-form-item">
-                    <input type="text" name="title" id="user_name" required lay-verify="required" placeholder="用户名"
-                        autocomplete="off" class="layui-input" v-model="name">
+                    <!-- <input type="text" name="title" id="user_name" required lay-verify="required" placeholder="用户名"
+                        autocomplete="off" class="layui-input" v-model="name"> -->
+                    <el-input v-model="name" placeholder="用户名"></el-input>
                 </div>
                 <div class="layui-form-item">
-                    <input type="password" name="title" id="password" required lay-verify="required" placeholder="密码"
-                        autocomplete="off" class="layui-input" v-model="password">
+                    <!-- <input type="password" name="title" id="password" required lay-verify="required" placeholder="密码"
+                        autocomplete="off" class="layui-input" v-model="password"> -->
+                    <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
                 </div>
                 <div class="areaChooseDiv">
                     <div class="layui-form-item">
-                        <select name="area" class="areaSelect" lay-verify="">
-                            <option disabled selected style='display:none;'>请选择院区</option>
-                            <option value="2" data-text="北京大学第三医院 首都国际机场院区">北京大学第三医院 首都国际机场院区</option>
-                            <option value="3" data-text="北京大学第三医院 海淀院区">北京大学第三医院 海淀院区</option>
-                        </select>
+                        <el-select v-model="areaSelect" class="selectDiv" placeholder="请选择院区">
+                            <el-option
+                            v-for="item in areaoptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                            </el-option>
+                        </el-select>
                     </div>
                     <div class="layui-form-item">
-                        <select name="department" class="departmentSelect" lay-verify="">
-                            <option value="0" disabled selected style='display:none;'>请选择科室</option>
-                            <option value="2">产科</option>
-                            <option value="3">妇科</option>
-                        </select>
+                        <el-select v-model="departmentSelect" class="selectDiv" placeholder="请选择科室">
+                            <el-option
+                            v-for="item in departmentOptions"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                            </el-option>
+                        </el-select>
                     </div>
                 </div>
                 <div class="layui-form-item buttonDiv">
@@ -37,7 +46,7 @@
                 </div>
             </form>
         </div>
-        <div class="popDivBg">
+        <!-- <div class="popDivBg">
             <div class="popDiv">
                 <form class="layui-form" action="">
                     <div class="layui-form-item">
@@ -50,7 +59,6 @@
                     <div class="layui-form-item">
                         <select name="department" class="departmentSelect" lay-verify="">
                             <option value="0" disabled selected style='display:none;'>请选择科室</option>
-                            <!-- <option value="1">请选择科室</option> -->
                             <option value="2">产科</option>
                             <option value="3">妇科</option>
                         </select>
@@ -60,29 +68,69 @@
                     </div>
                 </form>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 <script>
+import { $login } from '../api/login'
+import { getCookie } from '../common/js/common'
+
 export default {
   data () {
     return {
       password: '',
-      name: ''
+      name: '',
+      areaSelect: '',
+      departmentSelect: '',
+      areaoptions: [{
+        value: '北京大学第三医院 首都国际机场院区',
+        label: '北京大学第三医院 首都国际机场院区'
+      }, {
+        value: '北京大学第三医院 海淀院区',
+        label: '北京大学第三医院 海淀院区'
+      }],
+      departmentOptions: [
+        {
+          value: '产科',
+          label: '产科'
+        }, {
+          value: '妇科',
+          label: '妇科'
+        }
+      ]
+
     }
+  },
+  created () {
+    // console.log(localStorage.getItem('cToken'))
+    console.log(getCookie('cToken'))
   },
   methods: {
     goin () {
-      if (this.name === 'yanshi') {
-        this.$router.push('/')
-      } else {
-        this.$message.error('用户名或密码错误')
-      }
+      const redirect = this.$route.query.redirect
+      $login(this.name, this.password).then(res => {
+        if (res.IsLogined) {
+          this.$message({message: res.Msg, type: 'success'})
+          let cToken = getCookie('cToken')
+          localStorage.setItem('cToken', cToken)
+          if (redirect) {
+            // 存在回跳地址就回跳
+            this.$router.push(redirect)
+          } else {
+          // 否则就跳到默认的首页
+            this.$router.push({
+              name: 'index'
+            })
+          }
+        } else {
+          this.$message.error(res.Msg)
+        }
+      })
     }
   }
 }
 </script>
-    <style scoped>
+<style scoped>
     .menu-deployment{
         left:0px;
     }
@@ -336,6 +384,13 @@ export default {
             margin-top: 70px;
         }
         .areaChooseDiv{
-            display:none;
+            /* display:none; */
+        }
+        .selectDiv{
+            width:100%;
         }
     </style>
+    <style>
+    .content-box{
+        background:#fff;
+    }</style>
