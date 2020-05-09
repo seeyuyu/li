@@ -74,16 +74,22 @@
     </div>
     <div class="rightBody">
       <div>
-        <div>暂无数据</div>
+        <div>暂无数据{{name}}</div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { store } from 'common/js/store'
 export default {
   data () {
     return {
 
+    }
+  },
+  computed: {
+    name () {
+      return store.name
     }
   },
   beforeMount (height) {

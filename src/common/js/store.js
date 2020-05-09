@@ -1,14 +1,11 @@
-export var store = {
-  debug: true,
-  state: {
-    message: 'store'
+import Vue from 'vue'
+
+export let store = Vue.observable({count: 0, name: 'li'})
+export let mutations = {
+  setCount (count) {
+    store.count = count
   },
-  setMessageAction (newValue) {
-    if (this.debug) console.log('setMessageAction triggered with', newValue)
-    this.state.message = newValue
-  },
-  clearMessageAction () {
-    if (this.debug) console.log('clearMessageAction triggered')
-    this.state.message = ''
+  changeName (name) {
+    store.name = name
   }
 }

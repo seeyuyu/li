@@ -133,7 +133,7 @@ export default {
     font-size: 18px;
     background: #fff;
     -webkit-box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
-    box-shadow: 0 0 8px 0 rgba(0,0,0,.1); 
+    box-shadow: 0 0 8px 0 rgba(0,0,0,.1);
 }
 .collapse-btn {
     float: left;
