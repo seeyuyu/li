@@ -57,72 +57,75 @@
     </div>
 </template>
 <script>
-/* eslint-disable */
+
 import bus from 'common/js/bus'
+import { mutations } from 'common/js/store'
 export default {
-    data () {
-        return {
-            retract: false,
-            fullscreen: false,
-            name: '测试',
-            message: 2
-        }
-    },
-    computed: {
-        username () {
-            let username = localStorage.getItem('ms_username')
-            return username || this.name
-        }
-    },
-    methods: {
-        // 用户名下拉菜单选择事件
-        handleCommand (command) {
-            if (command == 'loginout') {
-                localStorage.removeItem('ms_username')
-                this.$router.push('/login')
-            }
-        },
-        // 侧边栏折叠
-        retractCheck () {
-            bus.$on('retract', res =>{
-                this.retract = res
-            })
-            this.retract = !this.retract
-            bus.$emit('retract', this.retract)
-        },
-        // 全屏事件
-        handleFullScreen () {
-            let element = document.documentElement
-            if (this.fullscreen) {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen()
-                } else if (document.webkitCancelFullScreen) {
-                    document.webkitCancelFullScreen()
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen()
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen()
-                }
-            } else {
-                if (element.requestFullscreen) {
-                    element.requestFullscreen()
-                } else if (element.webkitRequestFullScreen) {
-                    element.webkitRequestFullScreen()
-                } else if (element.mozRequestFullScreen) {
-                    element.mozRequestFullScreen()
-                } else if (element.msRequestFullscreen) {
-                    // IE11
-                    element.msRequestFullscreen()
-                }
-            }
-            this.fullscreen = !this.fullscreen
-        }
-    },
-    mounted () {
-        if (document.body.clientWidth < 1500) {
-            // this.retractCheck()
-        }
+  data () {
+    return {
+      retract: false,
+      fullscreen: false,
+      name: '测试',
+      message: 2
     }
+  },
+  computed: {
+    username () {
+      let username = localStorage.getItem('ms_username')
+      return username || this.name
+    }
+  },
+  methods: {
+    // 用户名下拉菜单选择事件
+    handleCommand (command) {
+      if (command === 'loginout') {
+        mutations.setCookie('cToken', '', -1)
+        console.log('???????' + mutations.getCookie('cToken'))
+        localStorage.removeItem('ms_username')
+        this.$router.push('/login')
+      }
+    },
+    // 侧边栏折叠
+    retractCheck () {
+      bus.$on('retract', res => {
+        this.retract = res
+      })
+      this.retract = !this.retract
+      bus.$emit('retract', this.retract)
+    },
+    // 全屏事件
+    handleFullScreen () {
+      let element = document.documentElement
+      if (this.fullscreen) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen()
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen()
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen()
+        }
+      } else {
+        if (element.requestFullscreen) {
+          element.requestFullscreen()
+        } else if (element.webkitRequestFullScreen) {
+          element.webkitRequestFullScreen()
+        } else if (element.mozRequestFullScreen) {
+          element.mozRequestFullScreen()
+        } else if (element.msRequestFullscreen) {
+          // IE11
+          element.msRequestFullscreen()
+        }
+      }
+      this.fullscreen = !this.fullscreen
+    }
+  },
+  mounted () {
+    if (document.body.clientWidth < 1500) {
+      // this.retractCheck()
+    }
+  }
 }
 </script>
 <style scoped>

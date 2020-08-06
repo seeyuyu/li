@@ -6,6 +6,7 @@ import router from './router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
+import { mutations } from 'common/js/store'
 
 Vue.prototype.$axios = axios
 Vue.use(ElementUI)
@@ -14,10 +15,14 @@ Vue.config.productionTip = false
 
 // 路由判断登录 根据路由配置文件的参数
 router.beforeEach((to, from, next) => {
-  console.log(to)
+  // console.log(to)
+  // console.log(from)
+  // console.log(next)
+  let cToken = mutations.getCookie('cToken')
   if (to.matched.some(record => record.meta.requireAuth)) { // 判断该路由是否需要登录权限  requireAuth为true:需要登陆
     // console.log('需要登录权限');
-    if (localStorage.getItem('cToken')) {
+    // let cToken = mutations.getCookie('cToken')
+    if (cToken) {
       next()
     } else {
       next({
@@ -28,7 +33,18 @@ router.beforeEach((to, from, next) => {
       })
     }
   } else {
-    next()
+    // let cToken = mutations.getCookie('cToken')
+    if (cToken) {
+      if (to.matched.some(record => record.path === '/login')) {
+        console.log(to.matched)
+        next({
+          path: '/'
+        })
+      }
+      next()
+    } else {
+      next()
+    }
   }
 })
 

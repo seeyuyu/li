@@ -6,41 +6,11 @@
         </div>
         <div class="navScrollDiv">
             <div class="navBlockDiv">
-                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8022/',1)" data-url="">
+                <div class="navBlockLi" v-for="(item, index) in menuList" :key="index" @click="checkurl(item.url,item.type)">
                     <div class="navBlockLiImg">
-                        <img src="https://dn-st.teambition.net/appstore/images/basic_app_members.png">
+                        <img :src="item.icon">
                     </div>
-                    <p class="navBlockTxt">妇幼三期</p>
-                </div>
-                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8013/',1)" >
-                    <div class="navBlockLiImg">
-                      <img src="https://dn-st.teambition.net/appstore/images/basic_app_administration.png">
-                    </div>
-                    <p class="navBlockTxt">报表</p>
-                </div>
-                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8066/',1)" >
-                    <div class="navBlockLiImg">
-                      <img src="https://developer.teambition.com/reportapp/assets/logo.png">
-                    </div>
-                    <p class="navBlockTxt">档案管理</p>
-                </div>
-                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8015/',1)" >
-                    <div class="navBlockLiImg">
-                      <img src="https://striker.teambition.net/thumbnail/1119f87d6658f5dbea861daa17946aec29de/w/1024/h/1024">
-                    </div>
-                    <p class="navBlockTxt">产检计划</p>
-                </div>
-                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8012/',1)">
-                    <div class="navBlockLiImg">
-                      <img src="https://striker.teambition.net/thumbnail/11193f197529451ed9bce062893c821ea2e6/w/1024/h/1024">
-                    </div>
-                    <p class="navBlockTxt">上传统计</p>
-                </div>
-                <div class="navBlockLi" @click="checkurl('http://192.168.11.43:8090/',1)">
-                    <div class="navBlockLiImg">
-                      <img src="https://tcs.teambition.net/thumbnail/111o9200db4e71419ba5f4b5d61a064837ed/w/88/h/88">
-                    </div>
-                    <p class="navBlockTxt">妇幼平台</p>
+                    <p class="navBlockTxt">{{item.name}}</p>
                 </div>
             </div>
             <div class="editNavBtnDiv">
@@ -69,7 +39,8 @@ export default {
         return {
             controlRetract: false,
             navLists: [],
-            showWay:''
+            showWay:'',
+            menuList:[]
         }
     },
     created () {
@@ -90,8 +61,8 @@ export default {
           console.log(localStorage.getItem('cToken'))
           let cToken = localStorage.getItem('cToken')
           if(type===1){
-            // window.location.href = e;
-            window.open(e+'?id='+cToken,'_blank') // 新窗口打开外链接
+            window.location.href = e;
+            // window.open(e+'?id='+cToken,'_blank') // 新窗口打开外链接
           }else{
             this.$router.push({path:e})
           }
@@ -105,16 +76,34 @@ export default {
         },
         getNavData () {
             this.$axios
+                .get('http://localhost:7000/mock/menu', {
+                    // params: {
+                    //   ID: 12345 // 可选
+                    // }
+                })
+                .then((response) => {
+                    console.log('1')
+                    console.log(response.data)
+                    this.menuList = response.data
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
+                .then(() => {
+                    // always executed
+                })
+            this.$axios
                 .get('static/api/all.json', {
                     // params: {
                     //   ID: 12345 // 可选
                     // }
                 })
                 .then((response) => {
+                    // console.log(response)
                     this.navLists = response.data.list
                 })
                 .catch((error) => {
-                    console.log(error)
+                    console.error(error)
                 })
                 .then(() => {
                     // always executed
@@ -157,6 +146,7 @@ export default {
     left:0;
     bottom:81px;
     padding-bottom: 30px;
+    width:100%;
 }
 .navBlockDiv{
     display: -webkit-flex; /* Safari */

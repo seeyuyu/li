@@ -31,29 +31,68 @@ service.interceptors.request.use(config => {
     // config.headers['accessToken'] = Token;
     return config
   }
-}, function (error) {
+}, error => {
   // Do something with request error
   return Promise.reject(error)
 })
 
 // response拦截器
 service.interceptors.response.use(response => {
-  return response
-}, error => {
-  if (error.response.status && error.response.status === 401) { // 401, token失效
-    let token = window.sessionStorage.getItem('token')
-    if (token) {
-      Vue.cookie.delete('token')
-    }
-    // router.push({name: 'login'})
-    router.push({
-      name: 'login', // 从哪个页面跳转
-      query: {
-        retUrl: window.location.href.split('#')[1] || '',
-        is_new_user_url: 1
-      }
-    })
+  if (response.status === 200) {
+    return Promise.resolve(response)
+  } else {
+    return Promise.reject(response)
   }
+  // return response
+}, error => {
+  if (error.response.status) {
+    switch (error.response.status) {
+      case 401:
+        let token = window.sessionStorage.getItem('token')
+        if (token) {
+          Vue.cookie.delete('token')
+        }
+        // router.push({name: 'login'})
+        router.push({
+          name: 'login', // 从哪个页面跳转
+          query: {
+            retUrl: window.location.href.split('#')[1] || '',
+            is_new_user_url: 1
+          }
+        })
+        break
+      case 404:
+        console.log('网络请求不存在')
+        // Toast({
+        //   message: '网络请求不存在',
+        //   duration: 1500,
+        //   forbidClick: true
+        // });
+        break
+      // 其他错误，直接抛出错误提示
+      default:
+        // Toast({
+        //   message: error.response.data.message,
+        //   duration: 1500,
+        //   forbidClick: true
+        // });
+    }
+  }
+
+  // if (error.response.status && error.response.status === 401) { // 401, token失效
+  //   let token = window.sessionStorage.getItem('token')
+  //   if (token) {
+  //     Vue.cookie.delete('token')
+  //   }
+  //   // router.push({name: 'login'})
+  //   router.push({
+  //     name: 'login', // 从哪个页面跳转
+  //     query: {
+  //       retUrl: window.location.href.split('#')[1] || '',
+  //       is_new_user_url: 1
+  //     }
+  //   })
+  // }
   return Promise.reject(error.response)
 })
 
@@ -61,8 +100,7 @@ service.interceptors.response.use(response => {
 // 封装get
 export const get = (url) => {
   // params = params || {};
-  // 这里需要返回，service  ,此处用了装饰者模式，返回的一个函数 ，这样子使用，和没使用差不多发现了吗？
-  // post自己改
+  // 这里需要返回，service  ,此处用了装饰者模式，返回的一个函数
   return service.get(url, {})
 }
 // 封装post

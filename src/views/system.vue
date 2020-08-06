@@ -146,7 +146,7 @@ export default {
   bottom: 0px;
   top: 50px;
   left:0px;
-  overflow: scroll;
+  /* overflow-y: scroll; */
   width: 100%;
 }
 </style>

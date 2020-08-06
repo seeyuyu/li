@@ -73,7 +73,7 @@
 </template>
 <script>
 import { $login } from '../api/login'
-import { getCookie } from '../common/js/common'
+import { mutations } from 'common/js/store'
 
 export default {
   data () {
@@ -103,7 +103,7 @@ export default {
   },
   created () {
     // console.log(localStorage.getItem('cToken'))
-    console.log(getCookie('cToken'))
+    console.log(mutations.getCookie('cToken'))
   },
   methods: {
     goin () {
@@ -111,7 +111,7 @@ export default {
       $login(this.name, this.password).then(res => {
         if (res.IsLogined) {
           this.$message({message: res.Msg, type: 'success'})
-          let cToken = getCookie('cToken')
+          let cToken = mutations.getCookie('cToken')
           localStorage.setItem('cToken', cToken)
           if (redirect) {
             // 存在回跳地址就回跳
